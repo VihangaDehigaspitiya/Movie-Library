@@ -1,0 +1,50 @@
+{
+  "name": "Movie Library",
+  "version": "1.0.0",
+  "description": "Movie Library",
+  "main": "app.js",
+  "scripts": {
+    "test": "jest --watchAll --verbose",
+    "start": "nodemon app.js",
+    "start-server": "node app.js",
+    "db:makemigrations": "node ./node_modules/sequelize-auto-migrations/bin/makemigration.js",
+    "dbmigrate": "npx sequelize-cli db:migrate",
+    "dbseed": "npx sequelize-cli db:seed:all"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": ""
+  },
+  "homepage": "",
+  "devDependencies": {
+    "express-swagger-generator": "^1.1.17",
+    "jest": "^27.3.1",
+    "sequelize-cli": "^6.2.0",
+    "supertest": "^6.1.6"
+  },
+  "dependencies": {
+    "@sendgrid/mail": "^7.4.2",
+    "axios": "^0.21.4",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "ejs": "^3.1.6",
+    "express": "^4.17.1",
+    "generate-password": "^1.6.0",
+    "joi": "^17.4.2",
+    "jsonwebtoken": "^8.5.1",
+    "md5": "^2.3.0",
+    "moment": "^2.27.0",
+    "mysql2": "^2.1.0",
+    "randomstring": "^1.2.1",
+    "redis": "^3.0.2",
+    "sequelize": "^6.3.0",
+    "sequelize-auto-migrations": "github:scimonster/sequelize-auto-migrations#a063aa6535a3f580623581bf866cef2d609531ba",
+    "uuid": "^8.2.0"
+  }
+}

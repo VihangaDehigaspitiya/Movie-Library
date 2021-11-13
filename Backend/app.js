@@ -2,6 +2,8 @@ const express = require("express");
 const dotenv =  require("dotenv");
 const cors = require("cors");
 
+const userRouter = require('./routes/user')
+
 dotenv.config();
 
 const app = express();
@@ -9,6 +11,9 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+
+/* user */
+app.use('/user', userRouter);
 
 // Swagger Init
 const expressSwagger = require("express-swagger-generator")(app);

@@ -8,21 +8,7 @@ describe('User Module', () => {
             .send(data);
     }
 
-    it('POST user/register - User Registration - Invalid Payload', async () => {
-
-        let invalidUserObj = {
-            firstName: '',
-            lastName: '',
-            email: '',
-            password: '',
-        }
-
-        let res = await testRegisterUser(invalidUserObj);
-
-        expect(res.type).toBe('application/json');
-        expect(res.status).toBe(422);
-
-    });
+    it.todo('POST user/register - User Registration - Invalid Payload');
     it.todo('POST user/register - User Registration - Valid Payload');
     it.todo('POST user/register - User Registration - Duplicate Email');
 

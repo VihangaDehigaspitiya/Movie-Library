@@ -1,8 +1,7 @@
 const { Router } = require('express');
 
 const userController = require('../controllers/user');
-const userValidation = require('../validations/user')
-
+const userValidation = require('../validations/user');
 
 const router = Router();
 

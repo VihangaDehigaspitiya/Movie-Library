@@ -217,14 +217,4 @@ describe('User Module', () => {
 
     });
 
-
-    /*it.todo('POST user/login - User Login - Invalid Password');
-    it.todo('POST user/login - User Login - Invalid Email');
-    it.todo('POST user/login - User Login - Not Verified');
-    it.todo('POST user/login - User Login - Valid Credentials');
-
-    it.todo('GET user/login - User Login - Valid Credentials');
-    it.todo('POST user/login - User Login - Valid Credentials');
-    it.todo('POST user/login - User Login - Valid Credentials');*/
-
 })

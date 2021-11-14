@@ -18,6 +18,10 @@ const messages = Object.assign({
     SCC_ACCOUNT_VERIFIED: 'Account was successfully verified',
     SCC_USER_LOGOUT: 'User was successfully logged out',
 
+    // Wishlist
+    SCC_WISHLIST_ADD_SUCCESS: 'Movie was added successfully to the wishlist',
+    SCC_WISHLIST_REMOVE_SUCCESS: 'Movie was removed successfully from the wishlist',
+
     ERR_INTERNAL_SERVER: 'Internal Server Error',
 });
 

@@ -3,6 +3,7 @@ require('dotenv').config({ path: './Backend/.env' })
 const cors = require("cors");
 
 const userRouter = require('./routes/user')
+const wishlistRouter = require('./routes/wishlist')
 
 
 const app = express();
@@ -13,6 +14,9 @@ app.use(express.urlencoded({ extended: false }));
 
 /* user */
 app.use('/user', userRouter);
+
+/* wishlist */
+app.use('/wishlist', wishlistRouter);
 
 // Swagger Init
 const expressSwagger = require("express-swagger-generator")(app);

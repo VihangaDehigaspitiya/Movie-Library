@@ -26,6 +26,11 @@ class UserService {
         return await User.create(payload)
     }
 
+    /**
+     * Get user details by id
+     * @param id
+     * @returns {Promise<Model<any, TModelAttributes>>}
+     */
     static getUserById = async (id) => {
         return await User.findOne({
             where: {

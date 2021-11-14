@@ -12,7 +12,9 @@ module.exports = (sequelize, DataTypes) => {
         static associate(models) {
             User.hasMany(models.WishList, {
                 foreignKey: 'user_id',
-                sourceKey: 'id'
+                sourceKey: 'id',
+                onDelete: 'CASCADE',
+                hooks: true
             });
         }
     }

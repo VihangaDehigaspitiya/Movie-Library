@@ -7,7 +7,10 @@ const userValidation = require('../validations/user')
 const router = Router();
 
 /* POST register a new user */
-router.post('/register', [userValidation.create],  userController.register)
+router.post('/register', [userValidation.create],  userController.register);
+
+/* GET user verify */
+router.get('/verify/:id', [userValidation.userById], userController.verify);
 
 
 module.exports = router;

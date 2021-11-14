@@ -1,7 +1,9 @@
 const Joi = require('joi');
 const OperationResult = require("../helpers/result");
+const UserService = require("../services/user");
+const MessageCode = require("../resources/messages");
 
-exports.create = function (req, res, next) {
+exports.create =  (req, res, next) => {
     const data = req.body;
     // define the validation schema
     const schema = Joi.object().keys({
@@ -14,6 +16,16 @@ exports.create = function (req, res, next) {
     const { error } = schema.validate(data);
 
     if (error) return res.status(422).jsonp(OperationResult.failed(error.message));
+
+    next()
+}
+
+exports.userById = async (req, res, next) => {
+    const userId = req.params.id;
+    // define the validation schema
+
+    const user = await UserService.getUserById(userId);
+    if (!user) return res.status(404).jsonp(OperationResult.failed(MessageCode.ERR_USER_DOES_NOT_EXIST));
 
     next()
 }

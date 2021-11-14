@@ -5,6 +5,7 @@
   "main": "app.js",
   "scripts": {
     "test": "jest --watchAll --verbose",
+    "test:leak": "jest --watchAll --verbose --detectOpenHandles",
     "start": "nodemon app.js",
     "start-server": "node app.js",
     "db:makemigrations": "node ./node_modules/sequelize-auto-migrations/bin/makemigration.js",

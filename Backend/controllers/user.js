@@ -48,12 +48,36 @@ const register = async (req, res) => {
         }, MessageCode.SCC_USER_ADD_SUCCESS))
 
     } catch (e) {
-        return res.status(500).jsonp(OperationResult.failed(MessageCode.ERR_INTERNAL_SERVER));
+        return res.status(500).jsonp(OperationResult.failed(MessageCode.ERR_INTERNAL_SERVER, e.message));
     }
 };
 
+
+/**
+ * Verify user account
+ * @group User
+ * @route GET /user/verify/{id}
+ * @param {string} id.path.required
+ * @produces application/json
+ * @consumes application/json
+ */
+const verify = async (req, res) => {
+    try {
+        const user = await UserService.getUserById(req.params.id);
+        if (user.is_verified) return res.status(200).jsonp(OperationResult.success(null, MessageCode.SCC_ALREADY_VERIFIED));
+        user.is_verified = true;
+        await user.save();
+        // await email.confirmationEmail('account-confirmation', 'Account Confirmation', user);
+        return res.status(200).jsonp(OperationResult.success(null, MessageCode.SCC_ACCOUNT_VERIFIED));
+
+    } catch (e) {
+        return res.status(500).jsonp(OperationResult.failed(MessageCode.ERR_INTERNAL_SERVER, e.message));
+    }
+}
+
 const user = {
-    register
+    register,
+    verify
 }
 
 module.exports = user;

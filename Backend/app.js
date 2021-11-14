@@ -1,10 +1,9 @@
 const express = require("express");
-const dotenv =  require("dotenv");
+require('dotenv').config({ path: './Backend/.env' })
 const cors = require("cors");
 
 const userRouter = require('./routes/user')
 
-dotenv.config();
 
 const app = express();
 

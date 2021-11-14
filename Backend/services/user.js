@@ -25,6 +25,14 @@ class UserService {
     static addUser = async (payload) => {
         return await User.create(payload)
     }
+
+    static getUserById = async (id) => {
+        return await User.findOne({
+            where: {
+                id: id,
+            },
+        });
+    }
 }
 
 module.exports = UserService;

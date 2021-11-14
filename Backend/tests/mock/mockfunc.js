@@ -4,7 +4,7 @@ const { User, WishList } = require("../../models");
  * Delete all test user records
  * @returns {Promise<number>}
  */
-const deleteUserData = async () => {
+const mockDeleteUserData = async () => {
     return await User.destroy({
         where: {},
     })
@@ -15,16 +15,28 @@ const deleteUserData = async () => {
  * Delete all wish list records
  * @returns {Promise<number>}
  */
-const deleteWishListData = async () => {
+const mockDeleteWishListData = async () => {
     return await WishList.destroy({
         where: {},
     })
 }
 
+/**
+ * Add new user
+ * @param payload
+ * @returns {Promise<number>}
+ */
+const mockAddUser = async (payload) => {
+    return await User.create(payload)
+}
+
+
+
 
 const mock = {
-    deleteWishListData,
-    deleteUserData
+    mockDeleteUserData,
+    mockDeleteWishListData,
+    mockAddUser
 }
 
 module.exports = mock;

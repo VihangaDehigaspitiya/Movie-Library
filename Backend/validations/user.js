@@ -29,3 +29,18 @@ exports.userById = async (req, res, next) => {
 
     next()
 }
+
+exports.login =  (req, res, next) => {
+    const data = req.body;
+    // define the validation schema
+    const schema = Joi.object().keys({
+        email:  Joi.string().email({ minDomainSegments: 2 }).required(),
+        password: Joi.string().max(25).required(),
+    });
+
+    const { error } = schema.validate(data);
+
+    if (error) return res.status(422).jsonp(OperationResult.failed(error.message));
+
+    next()
+}

@@ -13,8 +13,11 @@ router.get('/', checkAuthorization, wishlistController.getWishlistMovies)
 /* POST wishlist add */
 router.post('/', checkAuthorization, [wishlistValidation.create], wishlistController.addToWishList)
 
-/* DELETE wishlist remove */
-router.delete('/', checkAuthorization, [wishlistValidation.delete], wishlistController.removeWishlistMovies)
+/* PUT wishlist remove */
+router.put('/', checkAuthorization, [wishlistValidation.delete], wishlistController.removeWishlistMovies)
+
+/* GET wishlist check */
+router.get('/:id', checkAuthorization, wishlistController.checkWishList)
 
 
 module.exports = router;

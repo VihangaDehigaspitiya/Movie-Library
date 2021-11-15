@@ -76,7 +76,7 @@ const getWishlistMovies = async (req, res) => {
 /**
  * Remove movies from wishlist
  * @group Wishlist
- * @route DELETE /wishlist
+ * @route PUT /wishlist
  * @param {WishListRemove.model} WishListRemove.body
  * @produces application/json
  * @consumes application/json
@@ -91,10 +91,29 @@ const removeWishlistMovies = async (req, res) => {
     }
 };
 
+/**
+ * Check wish list
+ * @group Wishlist
+ * @route GET /wishlist/{id}
+ * @param {string} id.path.required
+ * @produces application/json
+ * @consumes application/json
+ * @security JWT
+ */
+const checkWishList = async (req, res) => {
+    try {
+        const movie = await WishlistService.checkWishlist(req.params.id, req.user.id)
+        return res.status(200).jsonp(OperationResult.success(!!movie))
+    } catch (e) {
+        return res.status(500).jsonp(OperationResult.failed(MessageCode.ERR_INTERNAL_SERVER, e.message));
+    }
+};
+
 const wishlist = {
     addToWishList,
     getWishlistMovies,
-    removeWishlistMovies
+    removeWishlistMovies,
+    checkWishList
 }
 
 module.exports = wishlist;

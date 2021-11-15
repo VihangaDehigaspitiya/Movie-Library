@@ -56,6 +56,21 @@ class WishlistService {
             },
         });
     }
+
+    /**
+     * Check wish list
+     * @param movieId
+     * @param userId
+     * @returns {Promise<Model<any, TModelAttributes>>}
+     */
+    static checkWishlist = async (movieId, userId) => {
+        return await WishList.findOne({
+            where: {
+                user_id: userId,
+                movie_id: movieId
+            }
+        })
+    }
 }
 
 module.exports = WishlistService;

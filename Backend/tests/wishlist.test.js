@@ -144,18 +144,39 @@ describe('WishList Module', () => {
     }, 5000);
 
     /**
+     * Check test wishlist
+     * @param id
+     * @returns {*}
+     */
+    const testCheckWishList = (id) => {
+        return request(server)
+            .get(`/wishlist/${id}`)
+            .set('Authorization', 'Bearer ' + accessToken)
+    }
+
+    it('GET wishlist - Check Wishlist - Valid', async () => {
+
+        let res = await testCheckWishList(550);
+
+        expect(res.type).toBe('application/json');
+        expect(res.status).toBe(200);
+        expect(res.body.value).toBe(true)
+
+    }, 5000);
+
+    /**
      * Delete test wishlist
      * @param data
      * @returns {*}
      */
     const testDeleteWishList = (data) => {
         return request(server)
-            .delete('/wishlist')
+            .put('/wishlist')
             .set('Authorization', 'Bearer ' + accessToken)
             .send(data);
     }
 
-    it('DELETE wishlist - Remove Wishlist - Invalid Payload', async () => {
+    it('PUT wishlist - Remove Wishlist - Invalid Payload', async () => {
 
         let res = await testDeleteWishList(['test']);
 
@@ -165,7 +186,7 @@ describe('WishList Module', () => {
     }, 5000);
 
 
-    it('DELETE wishlist - Remove Wishlist - Invalid Payload', async () => {
+    it('PUT wishlist - Remove Wishlist - Invalid Payload', async () => {
 
         let payload = {
             movies: [wishlistId]

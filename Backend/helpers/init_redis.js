@@ -18,7 +18,7 @@ client.on('error', (err) => {
 })
 
 client.on('end', (err) => {
-    console.log("Client disconnected from redis.....")
+    // console.log("Client disconnected from redis.....")
 })
 
 process.on('SIGINT', () => {

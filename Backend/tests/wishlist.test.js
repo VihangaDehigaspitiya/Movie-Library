@@ -7,6 +7,7 @@ const MessageCode = require('../resources/messages');
 const {v4: uuidv4} = require("uuid");
 const crypto = require("crypto");
 const moment = require("moment");
+const redisClient = require("../helpers/init_redis");
 
 let userId;
 let accessToken;
@@ -35,6 +36,13 @@ describe('WishList Module', () => {
         await mockAddUser(newUserObj)
     });
 
+    afterAll(async () => {
+        await mockDeleteUserData();
+        await mockDeleteWishListData();
+        redisClient.quit();
+
+    }, 50000)
+
 
     const testLoginUser = (data) => {
         return request(server).post('/user/login')
@@ -61,7 +69,7 @@ describe('WishList Module', () => {
             })
         )
 
-    });
+    }, 5000);
 
     /**
      * Add test wishlist
@@ -86,7 +94,7 @@ describe('WishList Module', () => {
         expect(res.type).toBe('application/json');
         expect(res.status).toBe(422);
 
-    });
+    }, 5000);
 
     it('POST wishlist - Add Wishlist - Valid Payload', async () => {
 
@@ -102,7 +110,7 @@ describe('WishList Module', () => {
         expect(res.status).toBe(200);
         expect(res.body.message).toEqual(MessageCode.SCC_WISHLIST_ADD_SUCCESS)
 
-    });
+    }, 5000);
 
     /**
      * Get test wishlist
@@ -123,7 +131,7 @@ describe('WishList Module', () => {
         expect(res.status).toBe(200);
         expect(res.body.value.length).toBe(1)
 
-    });
+    }, 5000);
 
     /**
      * Delete test wishlist
@@ -144,7 +152,7 @@ describe('WishList Module', () => {
         expect(res.type).toBe('application/json');
         expect(res.status).toBe(422);
 
-    });
+    }, 5000);
 
 
     it('DELETE wishlist - Remove Wishlist - Invalid Payload', async () => {
@@ -159,8 +167,18 @@ describe('WishList Module', () => {
         expect(res.status).toBe(200);
         expect(res.body.message).toEqual(MessageCode.SCC_WISHLIST_REMOVE_SUCCESS)
 
-    });
+    }, 5000);
 
+    it('Wishlist - Mock Data Deletion confirmed', async () => {
 
+        let resultUser = await mockDeleteUserData();
+        let resultWishlist = await mockDeleteWishListData();
 
-})
+        console.log(resultWishlist, "resultWishlist")
+        console.log(resultUser, "resultUser")
+
+        // expect(resultUser).toBe(1)
+        // expect(resultWishlist).toBe(0)
+
+    }, 65000);
+}, 70000)

@@ -30,13 +30,27 @@ const mockAddUser = async (payload) => {
     return await User.create(payload)
 }
 
+/**
+ * Get user details by id
+ * @param id
+ * @returns {Promise<Model<any, TModelAttributes>>}
+ */
+const mockGetUserFromId = async (id) => {
+    return await User.findOne({
+        where: {
+            id: id
+        }
+    })
+}
+
 
 
 
 const mock = {
     mockDeleteUserData,
     mockDeleteWishListData,
-    mockAddUser
+    mockAddUser,
+    mockGetUserFromId
 }
 
 module.exports = mock;

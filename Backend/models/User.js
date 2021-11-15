@@ -46,6 +46,14 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false,
             defaultValue: false
         },
+        reset_otp: {
+            type: DataTypes.INTEGER,
+            allowNull: true
+        },
+        reset_otp_expired_at: {
+            type: DataTypes.INTEGER,
+            allowNull: true
+        },
         created_at: {
             type: DataTypes.INTEGER,
             allowNull: false

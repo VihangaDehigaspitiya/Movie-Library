@@ -14,6 +14,15 @@ router.get('/verify/:id', [userValidation.userById], userController.verify);
 /* POST user login */
 router.post('/login',[userValidation.login], userController.login);
 
+/* POST user forgot password */
+router.post('/forgot-password', [userValidation.forgotPassword], userController.forgotPassword);
+
+/* POST user verify otp */
+router.post('/verify/otp/:id', [userValidation.resetPasswordOTP, userValidation.userById], userController.resetPasswordOTP);
+
+/* POST user reset password */
+router.post('/reset-password/:id', [userValidation.resetPassword, userValidation.userById], userController.resetPassword);
+
 /* POST user refresh token */
 router.post('/refresh-token', userController.generateRefreshToken);
 

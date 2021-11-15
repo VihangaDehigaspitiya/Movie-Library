@@ -12,11 +12,14 @@ const messages = Object.assign({
     ERR_TOKEN_EXPIRED: 'Token Expired',
     ERR_USER_NOT_VERIFIED: 'Please verify email first!',
     ERR_PASSWORD_INCORRECT: "Incorrect Password",
+    ERR_OTP_WRONG: 'Wrong OTP',
 
     SCC_USER_ADD_SUCCESS: 'User was successfully added',
     SCC_ALREADY_VERIFIED: 'User already verified',
     SCC_ACCOUNT_VERIFIED: 'Account was successfully verified',
     SCC_USER_LOGOUT: 'User was successfully logged out',
+    SCC_OTP_EMAIL: 'OTP was successfully sent to your email',
+    SCC_PASSWORD_RESET: 'Password was reset successfully',
 
     // Wishlist
     SCC_WISHLIST_ADD_SUCCESS: 'Movie was added successfully to the wishlist',

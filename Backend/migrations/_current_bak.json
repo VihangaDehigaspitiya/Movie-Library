@@ -37,16 +37,6 @@
                     "field": "is_verified",
                     "seqType": "Sequelize.BOOLEAN"
                 },
-                "reset_otp": {
-                    "allowNull": true,
-                    "field": "reset_otp",
-                    "seqType": "Sequelize.INTEGER"
-                },
-                "reset_otp_expired_at": {
-                    "allowNull": true,
-                    "field": "reset_otp_expired_at",
-                    "seqType": "Sequelize.INTEGER"
-                },
                 "created_at": {
                     "allowNull": false,
                     "field": "created_at",
@@ -99,5 +89,5 @@
             "indexes": []
         }
     },
-    "revision": 2
+    "revision": 1
 }

@@ -157,6 +157,7 @@ const generateRefreshToken = async (req, res) => {
  * @param {RefreshToken.model} RefreshToken.body
  * @produces application/json
  * @consumes application/json
+ * @security JWT
  */
 const logout = async (req, res) => {
     try {
@@ -178,12 +179,105 @@ const logout = async (req, res) => {
     }
 }
 
+/**
+ * @typedef forgotPassword
+ * @property {string} email.required - email - eg: example@gmail.com
+ */
+
+
+/**
+ * Forgot Password
+ * @group User
+ * @route POST /user/forgot-password
+ * @param {forgotPassword.model} forgotPassword.body
+ * @produces application/json
+ * @consumes application/json
+ */
+const forgotPassword = async (req, res) => {
+    try {
+        const user = await UserService.getUserByEmail(req.body.email);
+        if (!user) return res.status(404).jsonp(OperationResult.failed(MessageCode.ERR_USER_DOES_NOT_EXIST));
+        if (!user.is_verified) return res.status(401).jsonp(OperationResult.failed(MessageCode.ERR_USER_NOT_VERIFIED));
+        user.reset_otp = Math.floor(100000 + Math.random() * 900000);
+        await user.save();
+        // await email.forgotPasswordEmail('forgot-password', 'Password Reset Verification', user);
+        return res.status(200).jsonp(OperationResult.success(user.id, MessageCode.SCC_OTP_EMAIL));
+
+    } catch (e) {
+        return res.status(500).jsonp(OperationResult.failed(MessageCode.ERR_INTERNAL_SERVER, e.message));
+    }
+}
+
+/**
+ * @typedef OTP
+ * @property {integer} otp.required - otp - eg: 123456
+ */
+
+
+/**
+ * Verify OTP
+ * @group User
+ * @route POST /user/verify/otp/{id}
+ * @param {string} id.path.required
+ * @param {OTP.model} OTP.body
+ * @produces application/json
+ * @consumes application/json
+ */
+const resetPasswordOTP = async (req, res) => {
+    try {
+        const user = await UserService.getUserById(req.params.id);
+        if (!user.is_verified) return res.status(401).jsonp(OperationResult.failed(MessageCode.ERR_USER_NOT_VERIFIED));
+        if (user.reset_otp !== req.body.otp) return res.status(401).jsonp(OperationResult.failed(MessageCode.ERR_OTP_WRONG));
+        return res.status(200).jsonp(OperationResult.success(user.id));
+
+    } catch (e) {
+        return res.status(500).jsonp(OperationResult.failed(MessageCode.ERR_INTERNAL_SERVER, e.message));
+    }
+}
+
+/**
+ * @typedef savePassword
+ * @property {string} password.required - password - eg: 12345
+ * @property {integer} otp.required - otp - eg: 12345
+ */
+
+/**
+ * Reset Password
+ * @group User
+ * @route POST /user/reset-password/{id}
+ * @param {string} id.path.required
+ * @param {savePassword.model} savePassword.body
+ * @produces application/json
+ * @consumes application/json
+ */
+const resetPassword = async (req, res) => {
+    try {
+        const user = await UserService.getUserById(req.params.id);
+        if (!user.is_verified) return res.status(401).jsonp(OperationResult.failed(MessageCode.ERR_USER_NOT_VERIFIED));
+        if (user.reset_otp !== req.body.otp) return res.status(401).jsonp(OperationResult.failed(MessageCode.ERR_OTP_WRONG));
+        user.password = crypto
+            .createHmac('sha256', process.env.PASSWORD_SECRET_KEY)
+            .update(req.body.password)
+            .digest('hex');
+        user.reset_otp = null;
+        await user.save();
+        // await email.passwordResetConfirmationEmail('reset-password-confirmation', 'Password Reset Confirmation', user);
+        return res.status(200).jsonp(OperationResult.success(user.id, MessageCode.SCC_PASSWORD_RESET));
+
+    } catch (e) {
+        return res.status(500).jsonp(OperationResult.failed(MessageCode.ERR_INTERNAL_SERVER, e.message));
+    }
+}
+
 const user = {
     register,
     verify,
     login,
     generateRefreshToken,
-    logout
+    logout,
+    resetPassword,
+    resetPasswordOTP,
+    forgotPassword
 }
 
 module.exports = user;

@@ -1,13 +1,14 @@
-import React from 'react';
+import React, {useState} from 'react';
 import MainContainer from "../components/Containers/Common/MainContainer";
 import Category from "../components/UI/MovieView/Category";
 import {Row, Col} from "react-bootstrap";
 import {useParams} from "react-router-dom";
-import MovieImage from "../assets/images/dummy/RedNotice.jpg"
+import MovieImage from "../assets/images/dummy/RedNotice.jpg";
 import ImdbImage from "../assets/images/imdb.png";
 
 const Movie = () => {
     const {id} = useParams();
+    const [isBookmarked, setIsBookmarked] = useState(false);
     console.log(id);
     return (
         <div className="movie-view">
@@ -18,7 +19,12 @@ const Movie = () => {
                             <img src={MovieImage} alt="movie"/>
                         </div>
                     </Col>
-                    <Col md="7">
+                    <Col md="7" className="position-relative">
+                        <div className="movie-view__bookmark"
+                             onClick={() => setIsBookmarked(!isBookmarked)}
+                        >
+                            <i className={isBookmarked ? 'fas fa-bookmark' : 'far fa-bookmark'}/>
+                        </div>
                         <div className="movie-view__name">
                             <h1>Red Notice</h1>
                             <h4>2021</h4>

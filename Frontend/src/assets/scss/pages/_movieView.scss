@@ -57,4 +57,11 @@
   &__max-rating {
     font-size: 25px;
   }
+
+  &__bookmark{
+    text-align: right;
+    font-size: 25px;
+    color: gray;
+    cursor: pointer;
+  }
 }

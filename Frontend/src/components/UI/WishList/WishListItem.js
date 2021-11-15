@@ -9,6 +9,7 @@ const WishListItem = () => {
                 <Form.Group className="text-center">
                     <Form.Check
                         required
+                        value={Math.floor((Math.random() * 100))}
                     />
                 </Form.Group>
             </Col>

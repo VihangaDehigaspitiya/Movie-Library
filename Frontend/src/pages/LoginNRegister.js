@@ -3,6 +3,7 @@ import LoginNRegisterContainer from "../components/Containers/Login/LoginNRegist
 import SignUp from "../components/UI/Login/SignUp";
 import SignIn from "../components/UI/Login/SignIn";
 import Overlay from "../components/UI/Login/Overlay";
+import API from "../services";
 
 const LoginNRegister = () => {
     const [isSignUp, setIsSignUp] = useState(false);
@@ -14,14 +15,21 @@ const LoginNRegister = () => {
         password: ''
     });
 
-    const handleRegisterSubmit = (e) => {
+    const [errors, setErrors] =  useState(null);
+
+    const handleRegisterSubmit = async (e) => {
         e.preventDefault();
         console.log("Submitted");
+        await API.user.login(userInfo);
     };
 
-    const handleLoginSubmit = (e) => {
+    const handleLoginSubmit = async (e) => {
         e.preventDefault();
         console.log("Submitted");
+        const response = await API.user.login(userInfo.email, userInfo.password);
+        if (!response.status) {
+            setErrors(response.message)
+        }
     };
 
     const handleChange = (e) => {
@@ -29,6 +37,7 @@ const LoginNRegister = () => {
         const payload = {...userInfo};
         payload[name] = value;
         setUserInfo(payload);
+        setErrors(null)
     };
 
     return (
@@ -44,6 +53,7 @@ const LoginNRegister = () => {
                     handleChange={handleChange}
                     login={userInfo}
                     setIsSignUp={setIsSignUp}
+                    error={errors}
                 />
                 <Overlay
                     setIsSignUp={setIsSignUp}

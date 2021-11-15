@@ -1,11 +1,15 @@
 import React from 'react';
-import {Button, Form} from "react-bootstrap";
+import {Button, Form, Alert} from "react-bootstrap";
 
 const SignIn = (props) => {
     return (
         <div className="form-container sign-in-container">
             <Form onSubmit={props.handleLoginSubmit}>
                 <h1 className="login-n-register__main-title mb-2">Sign in</h1>
+                {
+                    props.error && <Alert className="custom-alert" variant='danger'>{props.error}</Alert>
+                }
+
                 <Form.Group className="w-100">
                     <Form.Control
                         type="email"

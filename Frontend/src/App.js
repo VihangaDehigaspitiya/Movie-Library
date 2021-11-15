@@ -3,13 +3,18 @@ import Home from "./pages/Home";
 import WishList from "./pages/WishList";
 import Header from "./components/UI/Header/Header";
 import Movie from "./pages/Movie";
+import movie from "./services/movie.api";
 import {
     Route,
     Switch
 } from 'react-router-dom';
-import React from "react";
+import React, {useEffect} from "react";
 
 function App() {
+    useEffect(() => {
+        movie.setImageConfiguration();
+    },[])
+
     return (
         <>
             <Header/>
@@ -17,9 +22,9 @@ function App() {
                 <>
                     <div className="main-content">
                         <Route path="/" exact component={Home}/>
-                        <Route path="/login" component={LoginNRegister}/>
-                        <Route path="/wish-list" component={WishList}/>
-                        <Route path={`/movie/:id`} component={Movie}/>
+                        <Route path="/login" exact component={LoginNRegister}/>
+                        <Route path="/wish-list" exact component={WishList}/>
+                        <Route path={`/movie/:id`} exact component={Movie}/>
                     </div>
                 </>
             </Switch>

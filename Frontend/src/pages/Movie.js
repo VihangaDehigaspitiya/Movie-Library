@@ -1,18 +1,26 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import MainContainer from "../components/Containers/Common/MainContainer";
 import Category from "../components/UI/MovieView/Category";
 import {Row, Col} from "react-bootstrap";
 import {useParams} from "react-router-dom";
 import MovieImage from "../assets/images/dummy/RedNotice.jpg";
 import ImdbImage from "../assets/images/imdb.png";
+import {useHistory} from "react-router-dom";
 
 const Movie = () => {
     const {id} = useParams();
     const [isBookmarked, setIsBookmarked] = useState(false);
-    console.log(id);
+    const history = useHistory();
+
+    const changeParam = () => {
+        console.log(history, "this is history")
+        const randomId = Math.floor(Math.random() * 100);
+        history.replace(`/movie/${randomId}`);
+    };
     return (
         <div className="movie-view">
             <MainContainer>
+                <button onClick={changeParam}>test</button>
                 <Row>
                     <Col md="5">
                         <div className="movie-view__img">

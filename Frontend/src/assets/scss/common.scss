@@ -7,3 +7,51 @@ body {
   overflow-y: auto;
   margin-top: 80px;
 }
+
+/* Main Button Styles */
+
+.main-button {
+  &.btn-primary {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #000000;
+    border-color: #000000;
+
+    &:hover {
+      background-color: lighten(#000000, 5%);
+      border-color: lighten(#000000, 5%);;
+    }
+
+    &:focus {
+      box-shadow: none;
+      background-color: lighten(#000000, 5%);
+      border-color: lighten(#000000, 5%);;
+    }
+
+    &:active {
+      background-color: darken(#000000, 25%) !important;
+      border-color: darken(#000000, 25%) !important;
+      box-shadow: none;
+    }
+
+    &:disabled {
+      background-color: lighten(#000000, 5%) !important;
+      border-color: lighten(#000000, 5%) !important;
+      box-shadow: none;
+    }
+  }
+}
+
+/* Main Button Styles */
+
+/* Main Spinner Styles */
+
+.spinner {
+  &-border {
+    border: 3px solid currentColor;
+    border-right-color: transparent;
+  }
+}
+
+/* Main Spinner Styles */

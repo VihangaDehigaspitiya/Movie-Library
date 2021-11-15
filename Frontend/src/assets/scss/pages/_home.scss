@@ -1,0 +1,16 @@
+/* Search styles*/
+.search {
+  background-attachment: scroll;
+  background-position: center center;
+  min-height: 50vh;
+  position: relative;
+
+  &:before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.65)
+  }
+}
+
+/* Search styles*/

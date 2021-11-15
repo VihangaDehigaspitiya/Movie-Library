@@ -8,6 +8,7 @@ const MessageCode = require("../resources/messages");
 /**
  * @typedef WishList
  * @property {integer} movie_id.required - movie_id - eg: 1
+ * @property {boolean} is_added_wishlist.required - is_added_wishlist - eg: false
  */
 
 /**

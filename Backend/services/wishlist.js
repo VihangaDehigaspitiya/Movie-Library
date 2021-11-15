@@ -21,6 +21,21 @@ class WishlistService {
     };
 
     /**
+     * Remove added wish list
+     * @param movieId
+     * @param userId
+     * @returns {Promise<number>}
+     */
+    static removeAddedWishList = async (movieId, userId) => {
+        return await WishList.destroy({
+            where: {
+                user_id: userId,
+                movie_id: movieId
+            }
+        })
+    }
+
+    /**
      * Add movie to wishlist
      * @param payload
      * @returns {Promise<Model<any, TModelAttributes>>}

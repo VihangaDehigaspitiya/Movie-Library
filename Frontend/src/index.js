@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {BrowserRouter} from "react-router-dom";
 import App from './App';
-import './scss/main.scss';
+import './assets/scss/main.scss';
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(

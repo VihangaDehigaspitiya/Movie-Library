@@ -10,9 +10,7 @@ const Movie = ({movie, genres}) => {
     const [movieGenres, setMovieGenres] = useState([]);
 
     useEffect(() => {
-        console.log(genres, "component genres")
         const finalGenres = movie.genre_ids.map(id => genres.find(genre => genre.id === id).name);
-        console.log(finalGenres, movie.genre_ids);
         setMovieGenres(finalGenres);
     }, []);
 

@@ -1,21 +1,30 @@
 import LoginNRegister from "./pages/LoginNRegister";
-import Home from "./pages/home";
+import Home from "./pages/Home";
+import WishList from "./pages/WishList";
+import Header from "./components/UI/Header/Header";
+import {Row, Col} from "react-bootstrap";
 import {
-    BrowserRouter,
     Route,
     Switch
 } from 'react-router-dom';
 
 function App() {
     return (
-        <div className="App">
-            <BrowserRouter>
-                <Switch>
-                    <Route path="/" exact component={Home}/>
-                    <Route path="/login" component={LoginNRegister}/>
-                </Switch>
-            </BrowserRouter>
-        </div>
+        <>
+            <Header/>
+            <Switch>
+                <div className="main-content">
+                    <Row className="mx-0">
+                        <Col md={{span: 10, offset: 1}}>
+                            <Route path="/" exact component={Home}/>
+                            <Route path="/login" component={LoginNRegister}/>
+                            <Route path="/wish-list" component={WishList}/>
+                        </Col>
+                    </Row>
+                </div>
+
+            </Switch>
+        </>
     );
 }
 

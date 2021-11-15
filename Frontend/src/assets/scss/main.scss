@@ -1,4 +1,6 @@
 @import "../../../node_modules/bootstrap/scss/bootstrap";
 @import "base/typo";
+@import "utils/variables";
 @import "common";
 @import "pages/login";
+@import "components/header";

@@ -1,0 +1,17 @@
+.custom-header {
+  z-index: 999;
+  padding: 20px 100px;
+  box-shadow: 0 0 5px 4px rgba(0,0,0,.07);
+  position: fixed;
+  inset: 0;
+  bottom: unset;
+
+  .navbar-brand {
+    font-weight: $font-bold;
+  }
+
+  .nav-link.active {
+    color: rgba(0, 0, 0, 1);
+    font-weight: $font-medium;
+  }
+}

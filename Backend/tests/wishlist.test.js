@@ -87,7 +87,11 @@ describe('WishList Module', () => {
 
         let invalidUserObj = {
             movie_id: '',
-            is_added_wishlist: ''
+            is_added_wishlist: '',
+            image: '',
+            title: '',
+            release_date: '',
+            genre: '',
         }
 
         let res = await testAddWishList(invalidUserObj);
@@ -101,7 +105,11 @@ describe('WishList Module', () => {
 
         let validUserObj = {
             movie_id: 550,
-            is_added_wishlist: true
+            is_added_wishlist: true,
+            image: '/a26cQPRhJPX6GbWfQbvZdrrp9j9.jpg',
+            title: 'Fight Club',
+            release_date: '1999-10-15',
+            genre: 'Drama',
         }
 
         let res = await testAddWishList(validUserObj);

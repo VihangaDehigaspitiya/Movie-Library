@@ -85,6 +85,26 @@
                     "field": "movie_id",
                     "seqType": "Sequelize.INTEGER"
                 },
+                "title": {
+                    "allowNull": false,
+                    "field": "title",
+                    "seqType": "Sequelize.STRING"
+                },
+                "image": {
+                    "allowNull": false,
+                    "field": "image",
+                    "seqType": "Sequelize.STRING"
+                },
+                "release_date": {
+                    "allowNull": false,
+                    "field": "release_date",
+                    "seqType": "Sequelize.STRING"
+                },
+                "genre": {
+                    "allowNull": false,
+                    "field": "genre",
+                    "seqType": "Sequelize.STRING"
+                },
                 "created_at": {
                     "allowNull": false,
                     "field": "created_at",
@@ -99,5 +119,5 @@
             "indexes": []
         }
     },
-    "revision": 2
+    "revision": 3
 }

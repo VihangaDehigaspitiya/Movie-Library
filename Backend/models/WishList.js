@@ -30,6 +30,22 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.INTEGER,
             allowNull: false
         },
+        title: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
+        image: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
+        release_date: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
+        genre: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
         created_at: {
             type: DataTypes.INTEGER,
             allowNull: false

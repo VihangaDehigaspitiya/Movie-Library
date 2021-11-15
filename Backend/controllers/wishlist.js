@@ -9,6 +9,10 @@ const MessageCode = require("../resources/messages");
  * @typedef WishList
  * @property {integer} movie_id.required - movie_id - eg: 1
  * @property {boolean} is_added_wishlist.required - is_added_wishlist - eg: false
+ * @property {string} title.required - title - eg: title
+ * @property {string} image.required - image - eg: image
+ * @property {string} genre.required - genre - eg: genre
+ * @property {string} release_date.required - release_date - eg: release_date
  */
 
 /**
@@ -26,6 +30,10 @@ const addToWishList = async (req, res) => {
             id: uuidv4(),
             user_id: req.user.id,
             movie_id: req.body.movie_id,
+            image: req.body.image,
+            title: req.body.title,
+            release_date: req.body.release_date,
+            genre: req.body.genre,
             created_at: moment().unix()
         }
         if (!req.body.is_added_wishlist) {

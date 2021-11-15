@@ -7,6 +7,10 @@ exports.create =  (req, res, next) => {
     const schema = Joi.object().keys({
         movie_id: Joi.number().integer().required(),
         is_added_wishlist: Joi.boolean().required(),
+        title: Joi.string().required(),
+        image: Joi.string().required(),
+        release_date: Joi.string().required(),
+        genre: Joi.string().required(),
     });
 
     const { error } = schema.validate(data);

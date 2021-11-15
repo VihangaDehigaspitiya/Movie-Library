@@ -63,7 +63,7 @@ const signRefreshToken = (user) => {
  */
 const verifyRefreshToken = (refreshToken) => {
     return new Promise((resolve, reject) => {
-        jwt.verify(refreshToken, process.env.REFRESH_TOKEN_LIFE, (err, decoded) => {
+        jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, decoded) => {
             if (err) {
                 if (err.name === 'TokenExpiredError') resolve({status: false, data: MessageCode.ERR_TOKEN_EXPIRED})
                 resolve({status: false, data: MessageCode.ERR_UNAUTHORIZED})

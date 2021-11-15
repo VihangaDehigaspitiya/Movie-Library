@@ -28,12 +28,15 @@ const addToWishList = async (req, res) => {
             movie_id: req.body.movie_id,
             created_at: moment().unix()
         }
-        await WishlistService.addWishlist(dataValues);
+        if (!req.body.is_added_wishlist) {
+            await WishlistService.removeAddedWishList(dataValues.movie_id, dataValues.user_id);
+        } else {
+            await WishlistService.addWishlist(dataValues);
+        }
         return res.status(200).jsonp(OperationResult.success({
             id: dataValues.id,
             movie_id: dataValues.movie_id,
         }, MessageCode.SCC_WISHLIST_ADD_SUCCESS))
-
     } catch (e) {
         return res.status(500).jsonp(OperationResult.failed(MessageCode.ERR_INTERNAL_SERVER, e.message));
     }

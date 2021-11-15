@@ -6,6 +6,7 @@ exports.create =  (req, res, next) => {
     // define the validation schema
     const schema = Joi.object().keys({
         movie_id: Joi.number().integer().required(),
+        is_added_wishlist: Joi.boolean().required(),
     });
 
     const { error } = schema.validate(data);

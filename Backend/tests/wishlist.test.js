@@ -87,6 +87,7 @@ describe('WishList Module', () => {
 
         let invalidUserObj = {
             movie_id: '',
+            is_added_wishlist: ''
         }
 
         let res = await testAddWishList(invalidUserObj);
@@ -100,6 +101,7 @@ describe('WishList Module', () => {
 
         let validUserObj = {
             movie_id: 550,
+            is_added_wishlist: true
         }
 
         let res = await testAddWishList(validUserObj);

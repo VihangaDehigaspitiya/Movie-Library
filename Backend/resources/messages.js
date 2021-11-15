@@ -22,7 +22,7 @@ const messages = Object.assign({
     SCC_PASSWORD_RESET: 'Password was reset successfully',
 
     // Wishlist
-    SCC_WISHLIST_ADD_SUCCESS: 'Movie was added successfully to the wishlist',
+    SCC_WISHLIST_ADD_SUCCESS: 'Movie was successfully updated',
     SCC_WISHLIST_REMOVE_SUCCESS: 'Movie was removed successfully from the wishlist',
 
     ERR_INTERNAL_SERVER: 'Internal Server Error',

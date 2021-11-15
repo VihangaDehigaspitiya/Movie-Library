@@ -4,10 +4,10 @@ import SignUp from "../components/UI/Login/SignUp";
 import SignIn from "../components/UI/Login/SignIn";
 import Overlay from "../components/UI/Login/Overlay";
 
-const NewLoginNRegister = () => {
+const LoginNRegister = () => {
     const [isSignUp, setIsSignUp] = useState(false);
 
-    const [register, setRegister] = useState({
+    const [userInfo, setUserInfo] = useState({
         firstName: '',
         lastName: '',
         email: '',
@@ -26,9 +26,9 @@ const NewLoginNRegister = () => {
 
     const handleChange = (e) => {
         const {name, value} = e.target;
-        const payload = {...register};
+        const payload = {...userInfo};
         payload[name] = value;
-        setRegister(payload);
+        setUserInfo(payload);
     };
 
     return (
@@ -36,13 +36,13 @@ const NewLoginNRegister = () => {
             <LoginNRegisterContainer isSignUp={isSignUp}>
                 <SignUp
                     handleChange={handleChange}
-                    register={register}
+                    register={userInfo}
                     handleRegisterSubmit={handleRegisterSubmit}
                 />
                 <SignIn
                     handleLoginSubmit={handleLoginSubmit}
                     handleChange={handleChange}
-                    register={register}
+                    login={userInfo}
                     setIsSignUp={setIsSignUp}
                 />
                 <Overlay
@@ -53,4 +53,4 @@ const NewLoginNRegister = () => {
     );
 };
 
-export default NewLoginNRegister;
+export default LoginNRegister;

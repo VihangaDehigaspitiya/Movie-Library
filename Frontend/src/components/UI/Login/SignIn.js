@@ -11,7 +11,7 @@ const SignIn = (props) => {
                         type="email"
                         placeholder="Email"
                         name="email"
-                        value={props.register.email}
+                        value={props.login.email}
                         onChange={props.handleChange}
                         required
                     />
@@ -21,7 +21,7 @@ const SignIn = (props) => {
                         type="password"
                         placeholder="Password"
                         name="password"
-                        value={props.register.password}
+                        value={props.login.password}
                         onChange={props.handleChange}
                         required
                     />

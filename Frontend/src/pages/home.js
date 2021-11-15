@@ -1,6 +1,7 @@
 import React from 'react';
 import {useState} from "react";
 import Search from "../components/UI/Home/Search";
+import MoviesContainer from "../components/Containers/Home/MoviesContainer";
 
 const Home = () => {
 
@@ -31,6 +32,7 @@ const Home = () => {
                 handleSearch={handleSearch}
                 handleChange={handleChange}
             />
+            <MoviesContainer />
         </div>
     );
 };

@@ -128,7 +128,7 @@ const login = async (req, res) => {
  */
 const generateRefreshToken = async (req, res) => {
     try {
-        const refreshToken = req.body['value.refreshToken'];
+        const refreshToken = req.body.refreshToken;
         if (!refreshToken) {
             return res.status(403).jsonp(OperationResult.failed(MessageCode.ERR_MISSING_TOKEN));
         } else {

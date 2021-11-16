@@ -25,6 +25,10 @@ const messages = Object.assign({
     SCC_WISHLIST_ADD_SUCCESS: 'Movie was successfully updated',
     SCC_WISHLIST_REMOVE_SUCCESS: 'Movie was removed successfully from the wishlist',
 
+    ERR_EMAIL_SENT: 'Something went wrong when sending the email',
+    ERR_RENDERING_TEMPLATE: 'Something went wrong when rendering the email template',
+    SCC_EMAIL_SUCCESSFULLY_SENT: 'Email was successfully sent',
+
     ERR_INTERNAL_SERVER: 'Internal Server Error',
 });
 

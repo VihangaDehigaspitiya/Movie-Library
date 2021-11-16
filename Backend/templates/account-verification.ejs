@@ -1,0 +1,226 @@
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <style type="text/css">
+        body {
+            margin: 0;
+            padding: 0;
+            min-width: 100% !important;
+        }
+
+        img {
+            height: auto;
+        }
+
+        .content {
+            width: 100%;
+            max-width: 600px;
+        }
+
+        .header {
+            padding: 40px 30px 20px 30px;
+        }
+
+        .innerpadding {
+            padding: 50px 30px 50px 30px;
+        }
+
+        .borderbottom {
+            border-bottom: 1px solid #f2eeed;
+        }
+
+        .subhead {
+            font-size: 15px;
+            color: #ffffff;
+            font-family: 'Roboto', sans-serif;
+            letter-spacing: 10px;
+        }
+
+        .h1,
+        .h2,
+        .bodycopy {
+            color: #153643;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .h1 {
+            font-size: 33px;
+            line-height: 38px;
+            font-weight: bold;
+            color: #ffffff;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .h2 {
+            padding: 0 0 15px 0;
+            font-size: 20px;
+            line-height: 28px;
+            font-weight: bold;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .bodycopy {
+            font-size: 16px;
+            line-height: 22px;
+        }
+
+        .button {
+            text-align: center;
+            font-size: 18px;
+            font-family: sans-serif;
+            font-weight: bold;
+            padding: 0 30px 0 30px;
+        }
+
+        .button a {
+            color: #ffffff;
+            text-decoration: none;
+        }
+
+        .footer {
+            padding: 20px 30px 15px 30px;
+        }
+
+        .footercopy {
+            font-family: sans-serif;
+            font-size: 14px;
+            color: #ffffff;
+        }
+
+        .footercopy a {
+            color: #ffffff;
+            text-decoration: underline;
+        }
+
+        @media only screen and (max-width: 550px),
+        screen and (max-device-width: 550px) {
+            body[yahoo] .hide {
+                display: none !important;
+            }
+
+            body[yahoo] .buttonwrapper {
+                background-color: transparent !important;
+            }
+
+            body[yahoo] .button {
+                padding: 0px !important;
+            }
+
+            body[yahoo] .button a {
+                background-color: #e05443;
+                padding: 15px 15px 13px !important;
+            }
+
+            body[yahoo] .unsubscribe {
+                display: block;
+                margin-top: 20px;
+                padding: 10px 50px;
+                background: #2f3942;
+                border-radius: 5px;
+                text-decoration: none !important;
+                font-weight: bold;
+            }
+        }
+
+        /*@media only screen and (min-device-width: 601px) {
+        .content {width: 600px !important;}
+        .col425 {width: 425px!important;}
+        .col380 {width: 380px!important;}
+        }*/
+    </style>
+    <style type="text/css">
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap');
+
+        p,
+        h1,
+        h2,
+        h3,
+        h4,
+        ol,
+        li,
+        ul,
+        div {
+            font-family: 'Roboto', sans-serif;
+        }
+    </style>
+
+</head>
+
+<body yahoo bgcolor="#f6f8f1">
+    <table width="100%" bgcolor="#f6f8f1" border="0" cellpadding="0" cellspacing="0">
+        <tr>
+            <td>
+                <!--[if (gte mso 9)|(IE)]>
+            <table width="600" align="center" cellpadding="0" cellspacing="0" border="0">
+                <tr>
+                    <td>
+            <![endif]-->
+                <table bgcolor="#ffffff" class="content" align="center" cellpadding="0" cellspacing="0" border="0">
+                    <tr>
+                        <td bgcolor="#2D3E50" class="header" style="text-align: center;">
+                            <img src="https://www.themoviedb.org/assets/2/v4/logos/v2/blue_short-8e7b30f73a4020692ccca9c88bafe5dcb6f8a62a4c6bc55cd9ba82bb2cd95f6c.svg"
+                                alt="logo" style="width: 35%;">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="innerpadding borderbottom">
+                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                <tr>
+                                    <td class="h2">
+                                        <%= subject %>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="bodycopy">
+                                        <div style="margin-bottom:5px; font-weight:600;">Dear <%= name %>,</div>
+                                        <div style="margin-bottom:10px;font-size:15px">You are almost ready to complete
+                                            your account on IMDB Hub. Please confirm your Email address to finish
+                                            creating your account.</div>
+                                        <div class="buttonwrapper" bgcolor="#e05443"
+                                            style="text-align: center; margin: 30px 0">
+                                            <a href="<%= verificationLink %>" style="background-color: #e05443;
+                    padding: 10px 40px;
+                    font-size: 15px;
+                    color: #fff;
+                    text-decoration: none;
+                    font-weight: 600;
+                    font-family: 'Roboto', sans-serif;
+                    ">Confirm Email</a>
+                                        </div>
+
+                                        <div style="font-size: 14px; font-weight: 600;">
+                                            Thank you,<br>
+                                            IMDB Hub team.
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="footer" bgcolor="#44525f">
+                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                <tr>
+                                    <td align="center" class="footercopy">
+                                        &reg;&nbsp;www.themoviedb.org<br />
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+                <!--[if (gte mso 9)|(IE)]>
+            </td>
+            </tr>
+            </table>
+            <![endif]-->
+            </td>
+        </tr>
+    </table>
+</body>
+
+</html>

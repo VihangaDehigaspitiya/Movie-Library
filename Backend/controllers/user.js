@@ -6,6 +6,7 @@ const UserService = require('../services/user');
 const OperationResult = require('../helpers/result');
 const MessageCode = require('../resources/messages');
 const auth = require("../auth");
+const email = require('../helpers/email')
 
 /**
  * @typedef UserRegister
@@ -40,8 +41,8 @@ const register = async (req, res) => {
         }
         await UserService.addUser(dataValues);
 
-        /*let verificationLink = `${process.env.FRONTEND_URL}/user/verify/${dataValues.id}`
-        await email.verificationEmail('account-verification', 'Please verify your email address. You’re almost done.', dataValues, verificationLink);*/
+        let verificationLink = `${process.env.FRONTEND_URL}/user/verify/${dataValues.id}`
+        await email.verificationEmail('account-verification', 'Please verify your email address. You’re almost done.', dataValues, verificationLink);
         return res.status(200).jsonp(OperationResult.success({
             id: dataValues.id,
             first_name: dataValues.first_name,
@@ -68,7 +69,7 @@ const verify = async (req, res) => {
         if (user.is_verified) return res.status(200).jsonp(OperationResult.success(null, MessageCode.SCC_ALREADY_VERIFIED));
         user.is_verified = true;
         await user.save();
-        // await email.confirmationEmail('account-confirmation', 'Account Confirmation', user);
+        await email.confirmationEmail('account-confirmation', 'Account Confirmation', user);
         return res.status(200).jsonp(OperationResult.success(null, MessageCode.SCC_ACCOUNT_VERIFIED));
 
     } catch (e) {
@@ -200,7 +201,7 @@ const forgotPassword = async (req, res) => {
         if (!user.is_verified) return res.status(401).jsonp(OperationResult.failed(MessageCode.ERR_USER_NOT_VERIFIED));
         user.reset_otp = Math.floor(100000 + Math.random() * 900000);
         await user.save();
-        // await email.forgotPasswordEmail('forgot-password', 'Password Reset Verification', user);
+        await email.forgotPasswordEmail('forgot-password', 'Password Reset Verification', user);
         return res.status(200).jsonp(OperationResult.success(user.id, MessageCode.SCC_OTP_EMAIL));
 
     } catch (e) {
@@ -261,7 +262,7 @@ const resetPassword = async (req, res) => {
             .digest('hex');
         user.reset_otp = null;
         await user.save();
-        // await email.passwordResetConfirmationEmail('reset-password-confirmation', 'Password Reset Confirmation', user);
+        await email.passwordResetConfirmationEmail('reset-password-confirmation', 'Password Reset Confirmation', user);
         return res.status(200).jsonp(OperationResult.success(user.id, MessageCode.SCC_PASSWORD_RESET));
 
     } catch (e) {

@@ -2,14 +2,15 @@ import React from 'react';
 import {Col, Row, Form} from "react-bootstrap";
 import MovieImage from "../../../assets/images/dummy/RedNotice.jpg";
 
-const WishListItem = () => {
+const WishListItem = ({id, ...args}) => {
     return (
         <Row className="wishlist-item">
             <Col md="2">
                 <Form.Group className="text-center">
                     <Form.Check
                         required
-                        value={Math.floor((Math.random() * 100))}
+                        value={id}
+                        onChange={args.handleChange}
                     />
                 </Form.Group>
             </Col>

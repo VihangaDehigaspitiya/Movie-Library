@@ -4,26 +4,64 @@ import WishList from "./pages/WishList";
 import Header from "./components/UI/Header/Header";
 import ProtectedRoute from "./components/Containers/Common/ProtectedRoute";
 import Movie from "./pages/Movie";
-import movie from "./services/movie.api";
+import UserVerification from "./pages/UserVerification";
 import {
     Switch,
-    useLocation
 } from 'react-router-dom';
 import React, {useEffect} from "react";
+import { ToastContainer } from 'react-toastify';
+import TokenService from "./services/utilities/token";
+import API from './services';
+import {useHistory} from "react-router-dom";
+import authStore from "./store/auth.store"
 
-const isAuthenticated = !!localStorage.getItem("user");
+import 'react-toastify/dist/ReactToastify.css';
+
+
 
 function App() {
-    const location = useLocation();
+    const history = useHistory();
+
+    const user = authStore((state) => state.user)
+    const isAuthenticated = authStore((state) => state.isAuthenticated)
+
+    console.log("USer", user)
+    console.log("isAuthenticated", isAuthenticated)
 
     useEffect(() => {
-        movie.setImageConfiguration();
+        API.movie.setImageConfiguration();
     },[])
+
+    console.log(isAuthenticated, "isAuthenticated")
+
+    const logout = async () => {
+        await API.user.logout()
+            .then((res) => {
+                authStore.setState({isAuthenticated: false, user: null})
+                TokenService.removeUser()
+                history.push(`/login`);
+            })
+            .catch((err) => console.log(err))
+    }
 
     return (
         <>
-            <Header/>
-            <Switch location={location} key={location.pathname}>
+            <Header
+                user={user}
+                isAuthenticated={isAuthenticated}
+                logout={logout}
+            />
+            <ToastContainer
+                position="top-center"
+                autoClose={5000}
+                hideProgressBar={true}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                pauseOnHover
+            />
+            <Switch>
                 <>
                     <div className="main-content">
                         <ProtectedRoute
@@ -37,11 +75,18 @@ function App() {
                         <ProtectedRoute
                             auth={!isAuthenticated}
                             redirect="/"
+                            path="/user/verify/:id"
+                            exact
+                            component={UserVerification}
+                        />
+
+                        <ProtectedRoute
+                            auth={!isAuthenticated}
+                            redirect="/"
                             path="/login"
                             exact
                             component={LoginNRegister}
                         />
-
                         <ProtectedRoute
                             auth={!isAuthenticated}
                             redirect="/"
@@ -57,10 +102,11 @@ function App() {
                             exact
                             component={WishList}
                         />
-                        {/*<Route path="/" exact component={Home}/>*/}
-                        {/*<Route path="/login" exact component={LoginNRegister}/>*/}
-                        {/*<Route path="/wish-list" exact component={WishList}/>*/}
-                        {/*<Route path={`/movie/:id`} exact component={Movie}/>*/}
+                        {/*<Route path={'/user/verify/:id'} component={UserVerification}/>
+                        <Route path="/login" exact component={LoginNRegister}/>
+                        <Route path="/wish-list" exact component={WishList}/>
+                        <Route path={`/movie/:id`} exact component={Movie}/>
+                        <Route path={`/`} exact component={Home}/>*/}
                     </div>
                 </>
             </Switch>

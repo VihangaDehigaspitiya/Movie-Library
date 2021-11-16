@@ -12,12 +12,10 @@ const login = async (email, password) => {
         email: email,
         password: password,
     }).then((response) => {
-        if (response.data.value) {
-            TokenService.setUser(response.data.value)
-        }
         return response.data
     }).catch((error) => {
-        return error.response.data;
+        console.log(error)
+        return error.response ? error.response.data : {status: false, message: 'Something went wrong'};
     });
 };
 
@@ -49,11 +47,11 @@ const forgotPassword = async (email) => {
 /**
  * Verify OTP
  * @param otp
+ * @param id
  * @returns {Promise<AxiosResponse<any>>}
  */
-const verifyOTP = async (otp) => {
-    const user = TokenService.getUser();
-    return await BaseAPI.post(`/user/verify/otp/{${user.id}`, {
+const verifyOTP = async (otp, id) => {
+    return await BaseAPI.post(`/user/verify/otp/${id}`, {
         otp: otp
     })
 }
@@ -61,11 +59,11 @@ const verifyOTP = async (otp) => {
 /**
  * Reset password
  * @param payload
+ * @param id
  * @returns {Promise<AxiosResponse<any>>}
  */
-const resetPassword = async (payload) => {
-    const user = TokenService.getUser();
-    return await BaseAPI.post(`/user/reset-password/{${user.id}`, {
+const resetPassword = async (payload, id) => {
+    return await BaseAPI.post(`/user/reset-password/${id}`, {
         password: payload.password,
         otp: payload.otp
     })

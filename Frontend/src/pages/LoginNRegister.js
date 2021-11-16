@@ -4,8 +4,10 @@ import SignUp from "../components/UI/Login/SignUp";
 import SignIn from "../components/UI/Login/SignIn";
 import Overlay from "../components/UI/Login/Overlay";
 import API from "../services";
+import {toast} from "react-toastify";
+import authStore from "../store/auth.store"
 
-const LoginNRegister = () => {
+const LoginNRegister = (props) => {
     const [isSignUp, setIsSignUp] = useState(false);
 
     const [userInfo, setUserInfo] = useState({
@@ -15,17 +17,18 @@ const LoginNRegister = () => {
         password: ''
     });
 
-    const [errors, setErrors] =  useState(null);
+    const [errors, setErrors] = useState(null);
 
     const handleRegisterSubmit = async (e) => {
         e.preventDefault();
         console.log("Submitted");
         await API.user.register(userInfo)
             .then((res) => {
-                console.log(res.data.message, "RES")
+                console.log(res.data.message, "RES");
+                toast.success(res.data.message)
             })
             .catch((err) => {
-                console.log(err.response.data.message, "err")
+                setErrors(err.response ? err.response.data.message : 'Something went wrong')
             });
     };
 
@@ -35,6 +38,10 @@ const LoginNRegister = () => {
         const response = await API.user.login(userInfo.email, userInfo.password);
         if (!response.status) {
             setErrors(response.message)
+            authStore.setState({isAuthenticated: false, user: null})
+        } else {
+            authStore.setState({isAuthenticated: true, user: response.value})
+            props.history.push(`/`);
         }
     };
 
@@ -45,6 +52,11 @@ const LoginNRegister = () => {
         setUserInfo(payload);
         setErrors(null)
     };
+
+    const onChange = (value) => {
+        setIsSignUp((value));
+        setErrors(null)
+    }
 
     return (
         <>
@@ -63,7 +75,7 @@ const LoginNRegister = () => {
                     error={errors}
                 />
                 <Overlay
-                    setIsSignUp={setIsSignUp}
+                    setIsSignUp={(value) => onChange(value)}
                 />
             </LoginNRegisterContainer>
         </>

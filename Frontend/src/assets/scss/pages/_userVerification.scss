@@ -1,0 +1,48 @@
+.account-verification-page {
+  height: calc(100vh - 118px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  top: -50px;
+
+  @media only screen and (max-width: 768px) {
+    height: calc(100vh - 63px);
+  }
+
+  a {
+    text-decoration: none;
+  }
+}
+
+.reg-done {
+  &__congrats {
+    margin-top: 10px;
+  }
+
+  &__sub-title {
+    font-size: 15px;
+    position: relative;
+    top: -5px;
+    color: green;
+    font-weight: 400;
+  }
+
+  .select-user-modal__button {
+    a, button, span {
+      background-color: #000000;
+      color: white;
+      padding: 8px 30px;
+      font-size: 15px;
+      text-transform: uppercase;
+      border-radius: 4px;
+      width: unset;
+      margin: 0 auto;
+
+      &:hover {
+        background-color: lighten(#000000, 15%);
+        text-decoration: none;
+      }
+    }
+  }
+}

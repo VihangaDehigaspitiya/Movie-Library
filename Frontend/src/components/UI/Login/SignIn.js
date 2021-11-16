@@ -1,7 +1,11 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Button, Form, Alert} from "react-bootstrap";
+import ForgotPassword from "../../Containers/Login/ForgotPassword";
 
 const SignIn = (props) => {
+
+    const [forgotPassword, setForgotPassword] = useState(false)
+
     return (
         <div className="form-container sign-in-container">
             <Form onSubmit={props.handleLoginSubmit}>
@@ -29,8 +33,10 @@ const SignIn = (props) => {
                         required
                     />
                 </Form.Group>
+                <span onClick={() => setForgotPassword(true)} style={{cursor: 'pointer', fontWeight: '500'}}>Forgot Password?</span>
                 <Button type="submit" className="mt-3">Sign In</Button>
             </Form>
+            <ForgotPassword forgotPassword={forgotPassword} setForgotPassword={setForgotPassword}/>
         </div>
     );
 };

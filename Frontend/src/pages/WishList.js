@@ -4,6 +4,7 @@ import WishListItem from "../components/UI/WishList/WishListItem";
 import MainButton from "../components/UI/MainButton/MainButton";
 import wishlistStore from '../store/wishlist.store'
 import API from "../services";
+import {toast} from "react-toastify";
 
 const WishList = () => {
 
@@ -34,10 +35,13 @@ const WishList = () => {
             movies: single ? [single] : removeItemList
         })
             .then((res) => {
-                getAllWishlist()
+                getAllWishlist();
+                toast.success(res.data.message)
                 console.log(res)
             })
-            .catch((err) =>  console.log(err))
+            .catch((err) =>  {
+                toast.error(err.response ? err.response.data.message : 'Something went wrong')
+            })
     }
 
     const items = wishList.map(item =>

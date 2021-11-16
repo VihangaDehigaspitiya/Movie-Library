@@ -12,6 +12,7 @@ const Movie = ({movie, genres}) => {
     useEffect(() => {
         const finalGenres = movie.genre_ids.map(id => genres.find(genre => genre.id === id).name);
         setMovieGenres(finalGenres);
+        // eslint-disable-next-line
     }, []);
 
     return (

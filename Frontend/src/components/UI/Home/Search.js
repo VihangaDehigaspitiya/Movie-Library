@@ -1,7 +1,7 @@
 import React from 'react';
 import SearchBg from "../../../assets/images/search-bg.webp";
 import {Row, Col, Form, FloatingLabel} from "react-bootstrap";
-import {genreList, orderByList, ratingList, yearList} from "../../../assets/content/content";
+import {yearList} from "../../../assets/content/content";
 import MainButton from "../MainButton/MainButton";
 import MainContainer from "../../Containers/Common/MainContainer";
 
@@ -43,7 +43,7 @@ const Search = (props) => {
                             </Col>
                         </Row>
                         <Row className="mx-0 search-by">
-                            <Col md="3" sm="6">
+                            {/*<Col md="3" sm="6">
                                 <FloatingLabel label="Genre">
                                     <Form.Select
                                         name="genre"
@@ -60,8 +60,8 @@ const Search = (props) => {
                                         {getOptionList(ratingList)}
                                     </Form.Select>
                                 </FloatingLabel>
-                            </Col>
-                            <Col md="3" sm="6">
+                            </Col>*/}
+                            <Col md="12" sm="6">
                                 <FloatingLabel label="Year">
                                     <Form.Select
                                         name="year"
@@ -70,7 +70,7 @@ const Search = (props) => {
                                     </Form.Select>
                                 </FloatingLabel>
                             </Col>
-                            <Col md="3" sm="6">
+                           {/* <Col md="3" sm="6">
                                 <FloatingLabel label="Order By">
                                     <Form.Select
                                         name="orderBy"
@@ -78,7 +78,7 @@ const Search = (props) => {
                                         {getOptionList(orderByList)}
                                     </Form.Select>
                                 </FloatingLabel>
-                            </Col>
+                            </Col>*/}
                         </Row>
                     </Form>
                 </MainContainer>

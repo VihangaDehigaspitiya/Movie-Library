@@ -5,17 +5,24 @@ import {Row, Col} from "react-bootstrap";
 import {useParams} from "react-router-dom";
 import ImdbImage from "../assets/images/imdb.png";
 import API from "../services";
+import TokenService from "../services/utilities/token";
+import { toast } from 'react-toastify';
 
 const Movie = () => {
     const {id} = useParams();
     const imageBaseUrl = localStorage.getItem('imageBaseUrl');
+
+    const user = TokenService.getUser()
 
     const [isBookmarked, setIsBookmarked] = useState(false);
     const [movieDetails, setMovieDetails] = useState(null)
 
     useEffect(() => {
         getMovieDetails();
-        checkWishlist()
+        if (user) {
+            checkWishlist()
+        }
+        // eslint-disable-next-line
     }, []);
 
 
@@ -31,9 +38,11 @@ const Movie = () => {
     const checkWishlist = async () => {
         await API.wishlist.checkWishlist(id)
             .then(res => {
-                setIsBookmarked(res.data.value)
+                setIsBookmarked(res.data.value);
             })
-            .catch(e => e.success)
+            .catch(err => {
+                console.log(err)
+            })
     };
 
     const addWishList = async () => {
@@ -47,9 +56,10 @@ const Movie = () => {
         })
             .then(res => {
                 setIsBookmarked(!isBookmarked)
+                toast.success(res.data.message)
             })
-            .catch(e => {
-                console.log(e)
+            .catch(err => {
+                toast.error(err.response ? err.response.data.message : 'Something went wrong')
             })
     }
 
@@ -63,17 +73,20 @@ const Movie = () => {
                         </div>
                     </Col>
                     <Col md="7" className="position-relative">
-                        <div className="movie-view__bookmark"
-                             onClick={() => addWishList()}
-                        >
-                            <i className={isBookmarked ? 'fas fa-bookmark' : 'far fa-bookmark'}/>
-                        </div>
+                        {
+                            user && <div className="movie-view__bookmark"
+                                         onClick={() => addWishList()}
+                            >
+                                <i className={isBookmarked ? 'fas fa-bookmark' : 'far fa-bookmark'}/>
+                            </div>
+                        }
+
                         <div className="movie-view__name">
                             <h1>{movieDetails.original_title}</h1>
                             <h4>{movieDetails.release_date.slice(0, 4)}</h4>
                         </div>
                         <div className="movie-view__categories">
-                            {movieDetails.genres.map(genre => <Category category={genre.name}/>)}
+                            {movieDetails.genres.map(genre => <Category key={genre.id} category={genre.name}/>)}
                         </div>
                         <p className="movie-view__description">
                             {movieDetails.overview}

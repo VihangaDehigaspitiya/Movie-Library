@@ -12,6 +12,7 @@ const MainButton =
      }) => {
 
         const spinner = <Spinner
+            className={args.spinnerClass}
             as="span"
             animation="border"
             role="status"

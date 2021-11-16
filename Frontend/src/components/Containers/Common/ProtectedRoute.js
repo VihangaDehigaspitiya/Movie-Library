@@ -11,7 +11,7 @@ const ProtectedRoute = props => {
                 auth ? (
                     <Component {...props} />
                 ) : (
-                    <Redirect to={pathname} />
+                    <Redirect  to={pathname} />
                 )
             }
         />

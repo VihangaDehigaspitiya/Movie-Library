@@ -5,21 +5,21 @@ import {Row, Col} from "react-bootstrap";
 import {useParams} from "react-router-dom";
 import ImdbImage from "../assets/images/imdb.png";
 import API from "../services";
-import TokenService from "../services/utilities/token";
 import { toast } from 'react-toastify';
+import userStore from "../store/auth.store"
 
 const Movie = () => {
     const {id} = useParams();
     const imageBaseUrl = localStorage.getItem('imageBaseUrl');
 
-    const user = TokenService.getUser()
+    const isAuthenticated = userStore((state) => state.isAuthenticated)
 
     const [isBookmarked, setIsBookmarked] = useState(false);
     const [movieDetails, setMovieDetails] = useState(null)
 
     useEffect(() => {
         getMovieDetails();
-        if (user) {
+        if (isAuthenticated) {
             checkWishlist()
         }
         // eslint-disable-next-line
@@ -74,7 +74,7 @@ const Movie = () => {
                     </Col>
                     <Col md="7" className="position-relative">
                         {
-                            user && <div className="movie-view__bookmark"
+                            isAuthenticated && <div className="movie-view__bookmark"
                                          onClick={() => addWishList()}
                             >
                                 <i className={isBookmarked ? 'fas fa-bookmark' : 'far fa-bookmark'}/>

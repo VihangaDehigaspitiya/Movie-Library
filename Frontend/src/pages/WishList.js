@@ -59,7 +59,7 @@ const WishList = () => {
             <MainContainer class="pt-4">
                 <div className="wishlist-header">
                     <h2 className="mb-4">Wish List</h2>
-                    <MainButton handleClick={() => onRemove()}>
+                    <MainButton disabled={wishList.length === 0} handleClick={() => onRemove()}>
                         Remove Selected
                     </MainButton>
                 </div>

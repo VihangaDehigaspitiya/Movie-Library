@@ -25,6 +25,7 @@ const MainButton =
                 className={`main-button ${args.classes}`}
                 size={size}
                 type={type}
+                disabled={args.disabled}
                 variant={variant}>
                 {isLoading ? spinner : args.children}
             </Button>

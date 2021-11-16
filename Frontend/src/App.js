@@ -6,6 +6,7 @@ import ProtectedRoute from "./components/Containers/Common/ProtectedRoute";
 import Movie from "./pages/Movie";
 import UserVerification from "./pages/UserVerification";
 import {
+    Route,
     Switch,
 } from 'react-router-dom';
 import React, {useEffect} from "react";
@@ -64,36 +65,6 @@ function App() {
             <Switch>
                 <>
                     <div className="main-content">
-                        <ProtectedRoute
-                            auth={!isAuthenticated}
-                            redirect="/"
-                            path="/"
-                            exact
-                            component={Home}
-                        />
-
-                        <ProtectedRoute
-                            auth={!isAuthenticated}
-                            redirect="/"
-                            path="/user/verify/:id"
-                            exact
-                            component={UserVerification}
-                        />
-
-                        <ProtectedRoute
-                            auth={!isAuthenticated}
-                            redirect="/"
-                            path="/login"
-                            exact
-                            component={LoginNRegister}
-                        />
-                        <ProtectedRoute
-                            auth={!isAuthenticated}
-                            redirect="/"
-                            path="/movie/:id"
-                            exact
-                            component={Movie}
-                        />
 
                         <ProtectedRoute
                             auth={isAuthenticated}
@@ -102,11 +73,10 @@ function App() {
                             exact
                             component={WishList}
                         />
-                        {/*<Route path={'/user/verify/:id'} component={UserVerification}/>
+                        <Route path={'/user/verify/:id'} component={UserVerification}/>
                         <Route path="/login" exact component={LoginNRegister}/>
-                        <Route path="/wish-list" exact component={WishList}/>
                         <Route path={`/movie/:id`} exact component={Movie}/>
-                        <Route path={`/`} exact component={Home}/>*/}
+                        <Route path={`/`} exact component={Home}/>
                     </div>
                 </>
             </Switch>

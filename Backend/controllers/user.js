@@ -99,8 +99,8 @@ const login = async (req, res) => {
             .digest("hex");
         let user = await UserService.getUserByEmail(req.body.email);
         if (!user) return res.status(404).jsonp(OperationResult.failed(MessageCode.ERR_USER_DOES_NOT_EXIST));
-        if (!user.is_verified) return res.status(401).jsonp(OperationResult.failed(MessageCode.ERR_USER_NOT_VERIFIED));
-        if (user.password !== passEncrypt) return res.status(401).jsonp(OperationResult.failed(MessageCode.ERR_PASSWORD_INCORRECT));
+        if (!user.is_verified) return res.status(403).jsonp(OperationResult.failed(MessageCode.ERR_USER_NOT_VERIFIED));
+        if (user.password !== passEncrypt) return res.status(403).jsonp(OperationResult.failed(MessageCode.ERR_PASSWORD_INCORRECT));
         let userData = {name: user.first_name, id: user.id};
         const token = auth.signAccessToken(userData)
         const refreshToken = await auth.signRefreshToken(userData)
@@ -198,7 +198,7 @@ const forgotPassword = async (req, res) => {
     try {
         const user = await UserService.getUserByEmail(req.body.email);
         if (!user) return res.status(404).jsonp(OperationResult.failed(MessageCode.ERR_USER_DOES_NOT_EXIST));
-        if (!user.is_verified) return res.status(401).jsonp(OperationResult.failed(MessageCode.ERR_USER_NOT_VERIFIED));
+        if (!user.is_verified) return res.status(403).jsonp(OperationResult.failed(MessageCode.ERR_USER_NOT_VERIFIED));
         user.reset_otp = Math.floor(100000 + Math.random() * 900000);
         await user.save();
         await email.forgotPasswordEmail('forgot-password', 'Password Reset Verification', user);
@@ -227,8 +227,8 @@ const forgotPassword = async (req, res) => {
 const resetPasswordOTP = async (req, res) => {
     try {
         const user = await UserService.getUserById(req.params.id);
-        if (!user.is_verified) return res.status(401).jsonp(OperationResult.failed(MessageCode.ERR_USER_NOT_VERIFIED));
-        if (user.reset_otp !== req.body.otp) return res.status(401).jsonp(OperationResult.failed(MessageCode.ERR_OTP_WRONG));
+        if (!user.is_verified) return res.status(403).jsonp(OperationResult.failed(MessageCode.ERR_USER_NOT_VERIFIED));
+        if (user.reset_otp !== Number(req.body.otp)) return res.status(403).jsonp(OperationResult.failed(MessageCode.ERR_OTP_WRONG));
         return res.status(200).jsonp(OperationResult.success(user.id));
 
     } catch (e) {
@@ -254,8 +254,8 @@ const resetPasswordOTP = async (req, res) => {
 const resetPassword = async (req, res) => {
     try {
         const user = await UserService.getUserById(req.params.id);
-        if (!user.is_verified) return res.status(401).jsonp(OperationResult.failed(MessageCode.ERR_USER_NOT_VERIFIED));
-        if (user.reset_otp !== req.body.otp) return res.status(401).jsonp(OperationResult.failed(MessageCode.ERR_OTP_WRONG));
+        if (!user.is_verified) return res.status(403).jsonp(OperationResult.failed(MessageCode.ERR_USER_NOT_VERIFIED));
+        if (user.reset_otp !==  Number(req.body.otp)) return res.status(403).jsonp(OperationResult.failed(MessageCode.ERR_OTP_WRONG));
         user.password = crypto
             .createHmac('sha256', process.env.PASSWORD_SECRET_KEY)
             .update(req.body.password)

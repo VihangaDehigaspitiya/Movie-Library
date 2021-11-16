@@ -9,7 +9,6 @@ const SignIn = (props) => {
                 {
                     props.error && <Alert className="custom-alert" variant='danger'>{props.error}</Alert>
                 }
-
                 <Form.Group className="w-100">
                     <Form.Control
                         type="email"

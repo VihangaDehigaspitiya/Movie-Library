@@ -1,8 +1,9 @@
 import React from 'react';
 import {Col, Row, Form} from "react-bootstrap";
-import MovieImage from "../../../assets/images/dummy/RedNotice.jpg";
 
 const WishListItem = ({id, ...args}) => {
+    const imageBaseUrl = localStorage.getItem('imageBaseUrl');
+
     return (
         <Row className="wishlist-item">
             <Col md="2">
@@ -16,20 +17,20 @@ const WishListItem = ({id, ...args}) => {
             </Col>
             <Col md="2">
                 <div className="wishlist-item__img">
-                    <img src={MovieImage} alt="movie"/>
+                    <img src={`${imageBaseUrl}/w780/${args.movie.image}`} alt="movie"/>
                 </div>
             </Col>
             <Col md="6">
                 <div className="wishlist-item__title">
-                    Red Notice (2021)
+                    {args.movie.title} ({args.movie.release_date.slice(0, 4)})
                 </div>
                 <div className="wishlist-item__categories">
-                    Action / Adventure
+                    {args.movie.genre}
                 </div>
             </Col>
             <Col md="2">
                 <div className="wishlist-item__remove">
-                    <i className="fas fa-minus-circle"/>
+                    <i className="fas fa-minus-circle" onClick={() => args.onRemove(id)}/>
                 </div>
             </Col>
         </Row>

@@ -1,11 +1,20 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import MainContainer from "../components/Containers/Common/MainContainer";
 import WishListItem from "../components/UI/WishList/WishListItem";
 import MainButton from "../components/UI/MainButton/MainButton";
+import wishlistStore from '../store/wishlist.store'
+import API from "../services";
 
 const WishList = () => {
 
-    const list = [1, 15, 343, 64537, 32, 533, 64, 6, 7977, 35];
+    const getAllWishlist = wishlistStore(state => state.getWishList)
+
+    const wishList = wishlistStore(state => state.wishlist)
+
+    useEffect(() => {
+        getAllWishlist();
+    }, [getAllWishlist])
+
     const [removeItemList, setRemoveItemList] = useState([]);
 
     const handleChange = (e) => {
@@ -20,11 +29,24 @@ const WishList = () => {
         setRemoveItemList(removeList);
     };
 
-    const items = list.map(item =>
+    const onRemove = async (single = null) => {
+        await API.wishlist.removeWishlistMovies({
+            movies: single ? [single] : removeItemList
+        })
+            .then((res) => {
+                getAllWishlist()
+                console.log(res)
+            })
+            .catch((err) =>  console.log(err))
+    }
+
+    const items = wishList.map(item =>
         <WishListItem
-            id={item}
-            key={item}
+            id={item.id}
+            key={item.id}
+            movie={item}
             handleChange={handleChange}
+            onRemove={(single) => onRemove(single)}
         />
     );
 
@@ -33,7 +55,7 @@ const WishList = () => {
             <MainContainer class="pt-4">
                 <div className="wishlist-header">
                     <h2 className="mb-4">Wish List</h2>
-                    <MainButton>
+                    <MainButton handleClick={() => onRemove()}>
                         Remove Selected
                     </MainButton>
                 </div>

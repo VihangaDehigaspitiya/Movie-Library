@@ -20,7 +20,13 @@ const LoginNRegister = () => {
     const handleRegisterSubmit = async (e) => {
         e.preventDefault();
         console.log("Submitted");
-        await API.user.login(userInfo);
+        await API.user.register(userInfo)
+            .then((res) => {
+                console.log(res.data.message, "RES")
+            })
+            .catch((err) => {
+                console.log(err.response.data.message, "err")
+            });
     };
 
     const handleLoginSubmit = async (e) => {
@@ -47,6 +53,7 @@ const LoginNRegister = () => {
                     handleChange={handleChange}
                     register={userInfo}
                     handleRegisterSubmit={handleRegisterSubmit}
+                    error={errors}
                 />
                 <SignIn
                     handleLoginSubmit={handleLoginSubmit}

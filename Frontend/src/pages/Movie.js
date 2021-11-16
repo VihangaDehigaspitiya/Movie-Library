@@ -4,7 +4,7 @@ import Category from "../components/UI/MovieView/Category";
 import {Row, Col} from "react-bootstrap";
 import {useParams} from "react-router-dom";
 import ImdbImage from "../assets/images/imdb.png";
-import movieApi from "../services/movie.api";
+import API from "../services";
 
 const Movie = () => {
     const {id} = useParams();
@@ -15,16 +15,43 @@ const Movie = () => {
 
     useEffect(() => {
         getMovieDetails();
+        checkWishlist()
     }, []);
 
+
     const getMovieDetails = async () => {
-        await movieApi.getMovieDetails(id)
+        await API.movie.getMovieDetails(id)
             .then(res => {
                 const {data} = res;
                 setMovieDetails(data);
             })
             .catch(e => e.success)
     };
+
+    const checkWishlist = async () => {
+        await API.wishlist.checkWishlist(id)
+            .then(res => {
+                setIsBookmarked(res.data.value)
+            })
+            .catch(e => e.success)
+    };
+
+    const addWishList = async () => {
+        await API.wishlist.addToWishlist({
+            movie_id: id,
+            is_added_wishlist: !isBookmarked,
+            title: movieDetails.original_title,
+            release_date: movieDetails.release_date,
+            image: movieDetails.poster_path,
+            genre: movieDetails.genres[0].name,
+        })
+            .then(res => {
+                setIsBookmarked(!isBookmarked)
+            })
+            .catch(e => {
+                console.log(e)
+            })
+    }
 
     return (
         <div className="movie-view">
@@ -37,7 +64,7 @@ const Movie = () => {
                     </Col>
                     <Col md="7" className="position-relative">
                         <div className="movie-view__bookmark"
-                             onClick={() => setIsBookmarked(!isBookmarked)}
+                             onClick={() => addWishList()}
                         >
                             <i className={isBookmarked ? 'fas fa-bookmark' : 'far fa-bookmark'}/>
                         </div>

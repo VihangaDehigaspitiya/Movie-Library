@@ -14,7 +14,7 @@ const messages = Object.assign({
     ERR_PASSWORD_INCORRECT: "Incorrect Password",
     ERR_OTP_WRONG: 'Wrong OTP',
 
-    SCC_USER_ADD_SUCCESS: 'User was successfully added',
+    SCC_USER_ADD_SUCCESS: 'User was successfully added. Please check your email.',
     SCC_ALREADY_VERIFIED: 'User already verified',
     SCC_ACCOUNT_VERIFIED: 'Account was successfully verified',
     SCC_USER_LOGOUT: 'User was successfully logged out',

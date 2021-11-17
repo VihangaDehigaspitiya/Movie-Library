@@ -1,9 +1,10 @@
 {
   "development": {
     "username": "root",
-    "password": null,
+    "password": "secret",
     "database": "movie_library",
-    "host": "127.0.0.1",
+    "host": "mysql_server",
+    "port": "3306",
     "dialect": "mysql",
 
     "migrationStorage": "sequelize",
@@ -18,7 +19,7 @@
     "username": "root",
     "password": null,
     "database": "movie_library_test",
-    "host": "127.0.0.1",
+    "host": "mysql_server",
     "dialect": "mysql",
 
     "migrationStorage": "sequelize",
@@ -30,10 +31,18 @@
     "seederStorageTableName": "sequelize_seeders"
   },
   "production": {
-    "username": "root",
-    "password": null,
-    "database": "database_production",
-    "host": "127.0.0.1",
-    "dialect": "mysql"
+    "username": "user",
+    "password": "secret",
+    "database": "movie_library",
+    "host": "mysql_server",
+    "dialect": "mysql",
+
+    "migrationStorage": "sequelize",
+
+    "migrationStorageTableName": "sequelize_meta",
+
+    "seederStorage": "sequelize",
+
+    "seederStorageTableName": "sequelize_seeders"
   }
 }

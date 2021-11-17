@@ -3,7 +3,7 @@ import {Row} from "react-bootstrap";
 import MainContainer from "../../Containers/Common/MainContainer";
 import Movie from "../../UI/Home/Movie";
 import PropTypes from "prop-types";
-import movieApi from "../../../services/movie.api";
+import API from "../../../services";
 
 const MoviesContainer = ({movies}) => {
     const [genres, setGenres] = useState([]);
@@ -13,7 +13,7 @@ const MoviesContainer = ({movies}) => {
     }, []);
 
     const getGenres = async () => {
-        await movieApi.getGenreList()
+        await API.movie.getGenreList()
             .then(res => {
                 const {data} = res;
                 setGenres(data.genres);

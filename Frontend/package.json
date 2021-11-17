@@ -24,6 +24,7 @@
     "zustand": "^3.6.5"
   },
   "scripts": {
+    "pm2": "pm2 serve build/ 3000 --name \"movie-library-frontend\"  --spa",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",

@@ -2,8 +2,8 @@ import React, {useEffect} from 'react';
 import {useState} from "react";
 import Search from "../components/UI/Home/Search";
 import MoviesContainer from "../components/Containers/Home/MoviesContainer";
-import movie from "../services/movie.api";
 import ReactPaginate from 'react-paginate';
+import API from "../services";
 
 const Home = () => {
 
@@ -12,42 +12,52 @@ const Home = () => {
         genre: '',
         rating: '',
         year: '2021',
-        orderBy: ''
+        orderBy: 'popularity.desc'
     });
 
     const [movies, setMovies] = useState([]);
+
+    const [genres, setGenres] = useState([]);
 
     const [pageCount, setPageCount] = useState(0);
 
     const [page, setPage] = useState(1);
 
-    const [isSearch, setIsSearch] = useState(false);
-
     let limit = 20;
     useEffect(() => {
-        const getMovies = async () => {
-            const {results, total_results} = isSearch ? await searchMovies() : await fetchMovies(page);
-            setPageCount(Math.ceil(total_results / limit));
-            setMovies(results);
-        };
-
         getMovies();
         // eslint-disable-next-line
-    }, [limit, page, isSearch]);
+    }, [limit, page]);
 
-    const fetchMovies = async (currentPage) => {
-        const {data} = await movie.popularMovies(currentPage)
-        return data;
+    useEffect(() => {
+        getGenres();
+        // eslint-disable-next-line
+    }, []);
+
+    const getMovies = async () => {
+        const {results, total_results} = await searchMovies();
+        setPageCount(Math.ceil(total_results / limit));
+        setMovies(results);
     };
 
     const searchMovies = async () => {
-        const {data} = await movie.search({
+        const {data} = await API.movie.search({
             page: page,
             searchTerm: search.searchTerm,
-            year: search.year ? search.year : 2021
+            year: search.year ? search.year : 2021,
+            rating: search.rating,
+            orderBy: search.orderBy,
+            genre: search.genre,
         })
         return data;
     };
+
+    const getGenres = async () => {
+        const {data} = await API.movie.getGenreList();
+        console.log("Genres", data.genres);
+        setGenres(data.genres)
+
+    }
 
     const handlePageClick = async ({selected}) => {
         let currentPage = selected + 1;
@@ -61,9 +71,9 @@ const Home = () => {
         setSearch(payload);
     };
 
-    const handleSearch = (e) => {
+    const handleSearch = async (e) => {
         e.preventDefault();
-        setIsSearch(true);
+        await getMovies()
     };
 
     return (
@@ -72,6 +82,7 @@ const Home = () => {
                 search={search}
                 handleSearch={handleSearch}
                 handleChange={handleChange}
+                genres={genres}
             />
             <div className=" mt-3 d-flex justify-content-center">
                 <ReactPaginate

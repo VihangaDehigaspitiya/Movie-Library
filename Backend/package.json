@@ -4,6 +4,7 @@
   "description": "Movie Library",
   "main": "app.js",
   "scripts": {
+    "pm2": "pm2 start server.js --name=movie-library-api --time",
     "test": "jest --watchAll --verbose --coverage",
     "test:coverage": "jest --forceExit --detectOpenHandles --verbose --coverage",
     "start": "nodemon server.js",

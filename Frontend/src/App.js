@@ -26,9 +26,6 @@ function App() {
     const user = authStore((state) => state.user)
     const isAuthenticated = authStore((state) => state.isAuthenticated)
 
-    console.log("USer", user)
-    console.log("isAuthenticated", isAuthenticated)
-
     useEffect(() => {
         API.movie.setImageConfiguration();
     },[])

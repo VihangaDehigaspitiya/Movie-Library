@@ -12,6 +12,10 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+
+/*coverage report*/
+app.use('/coverage', express.static('coverage/lcov-report'))
+
 /* user */
 app.use('/user', userRouter);
 

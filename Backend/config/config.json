@@ -1,6 +1,6 @@
 {
   "development": {
-    "username": "root",
+    "username": "user",
     "password": "secret",
     "database": "movie_library",
     "host": "mysql_server",
